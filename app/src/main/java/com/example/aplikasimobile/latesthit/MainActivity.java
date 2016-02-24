@@ -85,7 +85,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
 
 //        query_data();
         AsyncHttpClient client = new AsyncHttpClient();
-        client.get("http://192.168.1.48:8888/latesthit.json",
+        client.get("http://192.168.1.41:8888/latesthit.json",
                 new JsonHttpResponseHandler() {
                     @Override
                     public void onSuccess(JSONObject jsonObject) {
@@ -101,7 +101,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
                         //ambil listnya
                         JSONArray items = jsonObject.optJSONArray("items");
 
-                        mJSONAdapter.masukin(items);
+                        mJSONAdapter.masukin(items,jsonObject);
 
 //                        String name;
 //                        String song;

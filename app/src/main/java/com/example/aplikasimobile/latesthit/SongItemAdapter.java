@@ -28,6 +28,8 @@ public class SongItemAdapter extends BaseAdapter {
     //4.kontainer untuk jsonArray
     JSONArray mJsonArray;
 
+    JSONObject mJsonObject;
+
     private int lastPosition = -1;
 
     //5. buat konstruktor
@@ -59,7 +61,16 @@ public class SongItemAdapter extends BaseAdapter {
 
         // 8. kalau belum ada
         //inflate baru
-        convertView = mInflater.inflate(R.layout.songitem, null);
+        JSONObject jsonObject = (JSONObject) getItem(counter);
+
+        if(mJsonObject.optString("layout").equalsIgnoreCase("instagram") ){
+            convertView = mInflater.inflate(R.layout.layout_instagram, null);
+        }
+        else{
+            convertView = mInflater.inflate(R.layout.songitem, null);
+        }
+
+
 
         //9. buat clubholder baru dengan inisiasi semua elemen view nya
         song = new SongItem();
@@ -67,7 +78,7 @@ public class SongItemAdapter extends BaseAdapter {
         song.singer = (TextView) convertView.findViewById(R.id.singer);
         song.song = (TextView) convertView.findViewById(R.id.song);
 
-        JSONObject jsonObject = (JSONObject) getItem(counter);
+
 
         song.singer.setText(jsonObject.optString("singer"));
         song.song.setText(jsonObject.optString("song"));
@@ -83,8 +94,9 @@ public class SongItemAdapter extends BaseAdapter {
         return convertView;
     }
 
-    void masukin(JSONArray arr){
+    void masukin(JSONArray arr, JSONObject json){
         mJsonArray = arr;
+        mJsonObject = json;
 
         //spy tahu kalau di tengah2 isinya berubah
         notifyDataSetChanged();
